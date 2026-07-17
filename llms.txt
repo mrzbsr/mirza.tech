@@ -1,0 +1,37 @@
+# Mirza Beširović — mirza.tech
+
+> Personal site of Mirza Beširović, Director of Product, AI Agents at Zendesk, based in Berlin. AI product leader, advisor, and conference speaker. He writes the newsletter You Are the Product.
+
+## Who he is
+
+Mirza Beširović runs product for Zendesk AI Agents, the company's flagship AI automation platform. With his team he has scaled it to $100M+ ARR, automating 80%+ of customer interactions for Netflix, Vimeo, Levi's, Reddit, and thousands of others. He helped shape its commercial model: Zendesk was the first CX vendor to price AI per automated resolution.
+
+Before Zendesk he built AI and automation platforms at Ultimate.ai and Dixa, through hypergrowth and two M&A integrations (Solvemate → Dixa, 2022; Ultimate.ai → Zendesk, 2024). He started his career as a translator and interpreter.
+
+## What he speaks about
+
+- AI transformation: why most AI pilots stall and what taking one to $100M actually required
+- AI-native leadership: how leaders restructure their own work, product organizations, and operating models around AI
+- The Three Tensions of building AI agents at scale: the Control Paradox, the Orchestration Trap, the Evolution Crisis
+- The agentic era of product management: prototypes over PRDs, context architecture, spec-driven development, and evals as a core product skill
+
+Formats: keynotes, fireside chats, panels, podcasts. Talks in English.
+
+## Advisory
+
+He works with founders and product leaders on AI product strategy, agentic organizations, and M&A integration.
+
+## Pages
+
+- [Home](https://mirza.tech/): work, advisory, speaking, writing, about, contact
+- [Speaker kit](https://mirza.tech/speaker-kit.html): bios, headshot, and topics for event organizers
+
+## Elsewhere
+
+- [You Are the Product](https://youaretheproduct.io): his newsletter for product leaders building AI products
+- [LinkedIn](https://www.linkedin.com/in/mirzabesirovic/)
+- [GitHub](https://github.com/mrzbsr)
+
+## Contact
+
+- Email: mirza@mirza.tech
