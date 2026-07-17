@@ -3,14 +3,15 @@
    One WebGL piece, driven by gsap.ticker:
      - Hero head: cropped blue wireframe of the face mesh,
        drag-to-rotate + momentum + additive idle float.
-       (#heroMount, all viewports; touch drags via pointer events,
-       touch-action: pan-y keeps vertical scroll working)
+       (#heroMount, desktop ≥901px; mobile shows the static
+       fallback render via CSS — no module/GLB download there)
    v4 dropped the pipeline toy; this is hero-only.
    three.module.js (1.2MB) and the GLB (1.7MB) load via dynamic
    import on idle so they never compete with first paint.
    Nothing here calls requestAnimationFrame directly.
    =========================================================== */
 const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const DESKTOP = window.matchMedia('(min-width: 901px)').matches;
 const COL = { blue: 0x2b4bff, peri: 0x6f86ff, yellow: 0xe6ff00 };
 const GLB = 'face-mesh.glb';
 
@@ -21,7 +22,7 @@ window.MZScene = {
 };
 
 const mountEl = document.getElementById('heroMount');
-if (mountEl) {
+if (mountEl && DESKTOP) {
   // ~3MB of module + GLB — wait for idle so it never competes with first paint.
   // Any failure (no WebGL, import error) marks the mount so CSS collapses it
   // and the "drag to rotate" hint never appears over nothing.
