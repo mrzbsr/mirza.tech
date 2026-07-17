@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Speaker kit — Mirza Beširović</title>
+<meta name="description" content="Bios, headshot, and topics for event organizers booking Mirza Beširović." />
+<meta name="robots" content="noindex" />
+<link rel="canonical" href="https://mirza.tech/speaker-kit.html" />
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preload" href="fonts/InstrumentSans-Variable.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="stylesheet" href="assets/tokens.css" />
+<link rel="stylesheet" href="assets/site.css" />
+<script>document.documentElement.classList.add('js');</script>
+</head>
+<body class="legal-page">
+
+<header class="topbar topbar--light" id="topbar">
+  <div class="topbar-inner">
+    <a class="logo" href="index.html">mirza<span class="logo-dot"></span>tech</a>
+    <nav>
+      <a href="index.html#speaking">speaking</a>
+      <a href="index.html#work">work</a>
+      <a href="index.html#writing">writing</a>
+      <a href="index.html#about">about</a>
+      <a href="index.html#contact">contact</a>
+    </nav>
+  </div>
+</header>
+
+<main class="legal kit">
+  <p class="mono-label">For organizers</p>
+  <h1>Speaker kit</h1>
+  <p class="kit-intro">Everything you need to announce the talk. Copy a bio, download the headshot, and if anything else is missing: <a href="mailto:mirza@mirza.tech">mirza@mirza.tech</a>.</p>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Name &amp; title</h2>
+      <button class="copy-btn" data-copy="#kit-title" type="button">copy</button>
+    </div>
+    <div class="kit-copy" id="kit-title">Mirza Beširović — Director of Product, AI Agents at Zendesk</div>
+    <p class="kit-note">Plain-ASCII spelling if your system needs it: Mirza Besirovic.</p>
+  </div>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Short bio <span class="kit-len">~55 words</span></h2>
+      <button class="copy-btn" data-copy="#kit-short" type="button">copy</button>
+    </div>
+    <div class="kit-copy" id="kit-short">Mirza Beširović leads product for Zendesk AI Agents, the company's flagship AI automation platform. His teams have scaled it to $100M+ ARR, automating 80%+ of customer interactions for Netflix, Vimeo, Levi's, Reddit, and thousands of others. He writes and speaks about what AI agents are doing to the product management job. He lives in Berlin.</div>
+  </div>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Full bio <span class="kit-len">~130 words</span></h2>
+      <button class="copy-btn" data-copy="#kit-full" type="button">copy</button>
+    </div>
+    <div class="kit-copy" id="kit-full">Mirza Beširović runs product for Zendesk AI Agents, the company's flagship AI automation platform. With his team he has scaled it to $100M+ ARR and 4× the customer base: autonomous customer service for Netflix, Vimeo, Levi's, Reddit, and thousands of others, automating 80%+ of interactions across messaging, email, and voice.
+
+He leads the global product organization behind the platform and helped shape its commercial model: Zendesk was the first CX vendor to price AI per automated resolution.
+
+Before Zendesk he built AI and automation platforms at Ultimate.ai and Dixa, through hypergrowth and two M&amp;A integrations. He started his career as a translator and interpreter, and writes the newsletter You Are the Product. He lives in Berlin.</div>
+  </div>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Headshot</h2>
+    </div>
+    <figure class="kit-photo">
+      <img src="assets/mirza-headshot.jpg" alt="Mirza Beširović headshot" width="320" height="320" loading="lazy" />
+    </figure>
+    <p class="kit-note"><a class="ds-link" href="assets/mirza-headshot.jpg" download="mirza-besirovic-headshot.jpg">Download JPG →</a>&ensp;800 × 800 px.</p>
+  </div>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Topics</h2>
+    </div>
+    <ul class="kit-list">
+      <li>The agentic era of product management</li>
+      <li>The Three Tensions of building AI agents at scale</li>
+      <li>AI-native leadership</li>
+      <li>Breaking into AI as a PM</li>
+    </ul>
+    <p class="kit-note">Formats: keynotes, fireside chats, panels, podcasts. Best in big rooms and interactive formats. Talks in English.</p>
+  </div>
+
+  <div class="kit-block">
+    <div class="kit-head">
+      <h2>Links</h2>
+    </div>
+    <ul class="kit-list">
+      <li><a class="ds-link" href="https://mirza.tech">mirza.tech</a> — site &amp; recent talks</li>
+      <li><a class="ds-link" href="https://youaretheproduct.io" target="_blank" rel="noopener">youaretheproduct.io</a> — newsletter</li>
+      <li><a class="ds-link" href="https://www.linkedin.com/in/mirzabesirovic/" target="_blank" rel="noopener">linkedin.com/in/mirzabesirovic</a></li>
+    </ul>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <span class="foot-logo">mirza<span class="logo-dot"></span>tech</span>
+  <span>&copy; 2026 Mirza Beširović · <a href="mailto:mirza@mirza.tech">mirza@mirza.tech</a> · <a href="index.html">Home</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach((btn) => {
+  btn.addEventListener('click', async () => {
+    const el = document.querySelector(btn.dataset.copy);
+    try {
+      await navigator.clipboard.writeText(el.innerText.trim());
+      btn.textContent = 'copied';
+    } catch { btn.textContent = 'select + copy'; }
+    setTimeout(() => { btn.textContent = 'copy'; }, 1600);
+  });
+});
+</script>
+
+</body>
+</html>

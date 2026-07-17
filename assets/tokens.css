@@ -1,0 +1,258 @@
+/* ===========================================================
+   mirza.tech — Colors & Type foundation
+   Personal brand of Mirza Beširović — Director of Product,
+   AI Agents @ Zendesk. Berlin.
+
+   Aesthetic: warm-brutalist editorial. Cream paper, near-black
+   ink, one electric blue, one acid yellow. Hard offset shadows,
+   sharp 2px borders, monospace labels, big tight display type.
+
+   Fonts (loaded from Google Fonts CDN below):
+     - Display : Instrument Sans  (400–700)
+     - Mono    : JetBrains Mono   (400–700)
+     - Body    : Helvetica Neue   (system; Arial fallback off-Mac)
+   =========================================================== */
+
+/* ---------- Self-hosted fonts ----------
+   Instrument Sans (variable) + JetBrains Mono (static weights), bundled
+   in fonts/. Helvetica Neue stays a system font: the only file available
+   is a .ttc TrueType collection, which browsers cannot load via
+   @font-face — it falls back to the installed system face / Arial. */
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("../fonts/InstrumentSans-Variable.woff2") format("woff2"),
+       url("../fonts/InstrumentSans-Variable.woff") format("woff");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Instrument Sans";
+  src: url("../fonts/InstrumentSans-Italic-Variable.woff2") format("woff2"),
+       url("../fonts/InstrumentSans-Italic-Variable.woff") format("woff");
+  font-weight: 400 700;
+  font-stretch: 75% 100%;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: "JetBrains Mono";
+  src: url("../fonts/JetBrainsMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+:root {
+  /* ---------- Core surfaces ---------- */
+  --bg:          #F0E9D6;  /* warm cream — default page */
+  --bg-thesis:   #E5DCC4;  /* deeper cream — quote / big-claim blocks */
+
+  /* ---------- Ink / text ramp ---------- */
+  --ink:         #16171A;  /* primary text, card borders */
+  --ink-soft:    #2A2B2F;  /* body / lede text */
+  --muted:       #5C5C5C;  /* mono labels, captions */
+  --dim:         #8A857A;  /* tertiary captions, hints */
+
+  /* ---------- Hairlines & fills ---------- */
+  --line:        rgba(22,23,26,0.10);  /* default separators */
+  --line-strong: rgba(22,23,26,0.18);  /* card borders (light weight) */
+  --hover:       rgba(22,23,26,0.04);  /* row hover wash */
+
+  /* ---------- Accents ---------- */
+  --blue:        #2B4BFF;               /* the one accent — links, dots, CTAs */
+  --blue-soft:   rgba(43,75,255,0.08);  /* blue wash for hover / fills */
+  --yellow:      #E6FF00;               /* acid highlight — snum pills, .hi, shadows */
+
+  /* ---------- Dark surfaces ---------- */
+  --surface-dark:   #16171A;            /* the one dark — contact, footer, inverted cards */
+  --on-dark:        #F0E9D6;            /* cream ink on dark */
+  --on-dark-muted:  rgba(240,233,214,0.62);  /* secondary text on dark */
+  --line-on-dark:   rgba(240,233,214,0.18);  /* hairlines on dark */
+  --accent-on-dark: #8AA0FF;            /* periwinkle — blue is invisible on --surface-dark */
+
+  /* ---------- Type families ---------- */
+  --sans:    "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --display: "Instrument Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --mono:    "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* ---------- Semantic type tokens (size / line-height / tracking) ----------
+     These are the live values consumed by site.css — change them here. */
+  /* Hero display — the page-defining headline */
+  --t-hero-size: clamp(48px, 6.5vw, 92px);
+  --t-hero-lh: 0.98;
+  --t-hero-track: -0.04em;
+
+  /* Section H2 */
+  --t-h2-size: clamp(34px, 4.6vw, 60px);
+  --t-h2-lh: 1.02;
+  --t-h2-track: -0.03em;
+
+  /* Card / sub heading H3 */
+  --t-h3-size: clamp(22px, 2.2vw, 28px);
+  --t-h3-lh: 1.1;
+  --t-h3-track: -0.02em;
+
+  /* H4 */
+  --t-h4-size: 19px;
+  --t-h4-track: -0.01em;
+
+  /* Lede / standfirst */
+  --t-lede-size: clamp(18px, 1.6vw, 22px);
+  --t-lede-lh: 1.55;
+
+  /* Body */
+  --t-body-size: 17px;
+  --t-body-lh: 1.6;
+
+  /* Small body / card copy */
+  --t-small-size: 14.5px;
+  --t-small-lh: 1.6;
+
+  /* Mono label / ktag / eyebrow — the only two mono sizes on the site */
+  --t-mono-size: 11px;       /* labels, eyebrows, nav, numerals */
+  --t-mono-size-sm: 10.5px;  /* metadata: stat labels, card meta, captions, years */
+  --t-mono-track: 0.14em;
+
+  /* ---------- Shape & elevation ---------- */
+  --radius-sharp: 2px;   /* default — cards, buttons, pills */
+  --radius-pill: 999px;  /* chat dock pill, option chips */
+  --border-card: 2px solid var(--ink);          /* heavy bordered card */
+  --border-soft: 1px solid var(--line-strong);  /* light bordered card */
+
+  /* Signature hard offset shadows (no blur) */
+  --shadow-lift-yellow: 8px 8px 0 var(--yellow);
+  --shadow-lift-blue:   8px 8px 0 var(--blue);
+  --shadow-tile-ink:    4px 4px 0 var(--ink);
+  --shadow-cta-blue:    6px 6px 0 var(--blue);
+
+  /* Soft shadow (rare — used on teaser hover only) */
+  --shadow-soft: 0 12px 32px -16px rgba(43,75,255,0.40);
+
+  /* ---------- Motion ---------- */
+  --ease-out: cubic-bezier(.2,.7,.3,1);
+  --dur-fast: 180ms;
+  --dur-base: 240ms;
+  --dur-slow: 280ms;
+}
+
+/* ===========================================================
+   Dark & mono palette swaps — set on <body data-palette="…">
+   =========================================================== */
+/* Softer warm-slate dark — a mid-dark charcoal with a faint blue
+   undertone instead of near-black, and a gently dimmed off-white for
+   text. Lowers the cream-on-black contrast so the periwinkle blue and
+   acid yellow sit in the palette rather than fighting it. */
+body[data-palette="dark"] {
+  --bg: #20222B;
+  --bg-thesis: #2A2D38;
+  --ink: #E8E3D4;
+  --ink-soft: #C2BFCF;
+  --muted: #8F8C9D;
+  --dim: #635F70;
+  --line: rgba(232,227,212,0.11);
+  --line-strong: rgba(232,227,212,0.19);
+  --hover: rgba(232,227,212,0.05);
+  --blue: #8AA0FF;
+  --blue-soft: rgba(138,160,255,0.14);
+  --yellow: #E6FF00;
+}
+body[data-palette="mono"] {
+  --bg: #FAFAF7;
+  --bg-thesis: #EFEFEC;
+  --ink: #0F0F10;
+  --ink-soft: #2A2A2C;
+  --muted: #5A5A5C;
+  --dim: #8A8A8C;
+  --line: rgba(15,15,16,0.10);
+  --line-strong: rgba(15,15,16,0.20);
+  --hover: rgba(15,15,16,0.04);
+  --blue: #1A1A1C;
+  --blue-soft: rgba(15,15,16,0.05);
+  --yellow: #F0F0EC;
+}
+
+/* ===========================================================
+   Base semantic type styles — apply directly to elements.
+   Drop this file into any page and headings/body inherit the
+   mirza.tech voice without extra classes.
+   =========================================================== */
+.ds-type-scope {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: var(--t-body-size);
+  line-height: var(--t-body-lh);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, .h1 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--t-hero-size);
+  line-height: var(--t-hero-lh);
+  letter-spacing: var(--t-hero-track);
+  color: var(--ink);
+  margin: 0;
+}
+h2, .h2 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--t-h2-size);
+  line-height: var(--t-h2-lh);
+  letter-spacing: var(--t-h2-track);
+  color: var(--ink);
+  margin: 0;
+}
+h3, .h3 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--t-h3-size);
+  line-height: var(--t-h3-lh);
+  letter-spacing: var(--t-h3-track);
+  color: var(--ink);
+  margin: 0;
+}
+h4, .h4 {
+  font-family: var(--display);
+  font-weight: 700;
+  font-size: var(--t-h4-size);
+  letter-spacing: var(--t-h4-track);
+  color: var(--ink);
+  margin: 0;
+}
+.lede {
+  font-size: var(--t-lede-size);
+  line-height: var(--t-lede-lh);
+  color: var(--ink-soft);
+}
+.lede em, p em { font-style: normal; font-weight: 600; color: var(--ink); }
+p { font-size: var(--t-body-size); line-height: var(--t-body-lh); color: var(--ink-soft); }
+
+/* Mono label / eyebrow / ktag */
+.mono-label {
+  font-family: var(--mono);
+  font-size: var(--t-mono-size);
+  letter-spacing: var(--t-mono-track);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+/* Yellow keyword highlight */
+.hi {
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 0 0.08em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* Link style — underline in blue, thickens on hover */
+a.ds-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: var(--blue);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+}
+a.ds-link:hover { text-decoration-thickness: 2px; }
