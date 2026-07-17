@@ -106,7 +106,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .hero-mount.is-ready + .hero-visual-hint { opacity: 1; }
 .hero-mount.is-failed { cursor: default; }
 @media (max-width: 900px) {
-  .hero-visual { margin-top: 18px; }    /* single-column: head sits below the copy */
+  /* Mobile shows the static wireframe render, sized to the phone; WebGL
+     (module + GLB ≈ 3MB, drag handlers) stays desktop-only. */
+  .hero-visual { margin-top: 18px; }
+  .hero-mount { height: clamp(240px, 64vw, 420px); cursor: default; touch-action: auto; }
 }
 
 /* text CTAs */
