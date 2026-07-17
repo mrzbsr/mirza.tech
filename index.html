@@ -50,6 +50,7 @@
       <a href="#about">about</a>
       <a href="#contact">contact</a>
     </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   </div>
 </header>
 <header class="topbar topbar--dark" id="topbarDark" aria-hidden="true">
@@ -63,8 +64,24 @@
       <a href="#about" tabindex="-1">about</a>
       <a href="#contact" tabindex="-1">contact</a>
     </nav>
+    <button class="nav-toggle" type="button" tabindex="-1" aria-hidden="true"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-head">
+    <a class="logo" href="#top">mirza<span class="logo-dot"></span>tech</a>
+    <button class="mobile-menu-close" type="button" aria-label="Close menu">&#10005;</button>
+  </div>
+  <nav>
+    <a href="#work">work</a>
+    <a href="#advisory">advisory</a>
+    <a href="#speaking">speaking</a>
+    <a href="#writing">writing</a>
+    <a href="#about">about</a>
+    <a href="#contact">contact</a>
+  </nav>
+</div>
 
 <!-- ===================== HERO ===================== -->
 <section class="hero" id="hero" data-scene="hero">
@@ -374,6 +391,7 @@
   document.getElementById('advisory').after(document.getElementById('speaking'));
   if (location.hash) requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView());
 </script>
+<script src="assets/menu.js" defer></script>
 <script src="assets/vendor/gsap.min.js"></script>
 <script src="assets/vendor/ScrollTrigger.min.js"></script>
 <script type="module" src="assets/scene.js"></script>

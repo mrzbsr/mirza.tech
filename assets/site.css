@@ -69,8 +69,23 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   .topbar { background: var(--bg); border-bottom: 1px solid var(--line); }
   .topbar--dark { background: var(--surface-dark); border-bottom-color: var(--line-on-dark); }
   .topbar-inner { flex-wrap: wrap; row-gap: 4px; padding: 12px 22px; }
-  .topbar nav { width: 100%; gap: 20px; overflow-x: auto; scrollbar-width: none; }
-  .topbar nav::-webkit-scrollbar { display: none; }
+  .topbar nav { width: 100%; gap: 20px; }
+}
+
+/* ---------- mobile menu (≤720px: link row becomes a hamburger) ---------- */
+.nav-toggle { display: none; }
+.mobile-menu { display: none; }
+html.menu-open { overflow: hidden; }
+@media (max-width: 720px) {
+  .topbar nav { display: none; }
+  .nav-toggle { display: inline-flex; flex-direction: column; justify-content: center; align-items: center; gap: 5px; width: 42px; height: 38px; margin: -6px -10px -6px 0; background: none; border: 0; padding: 0; cursor: pointer; }
+  .nav-toggle span { display: block; width: 22px; height: 2px; background: var(--ink); }
+  .topbar--dark .nav-toggle span { background: var(--on-dark); }
+  .mobile-menu.is-open { display: block; position: fixed; inset: 0; z-index: 70; background: var(--bg); }
+  .mobile-menu-head { display: flex; justify-content: space-between; align-items: center; padding: 14px 22px; border-bottom: 1px solid var(--line); }
+  .mobile-menu-close { background: none; border: 0; padding: 2px 6px; cursor: pointer; font-size: 24px; line-height: 1; color: var(--ink); }
+  .mobile-menu nav { display: flex; flex-direction: column; padding: 12px 22px 0; }
+  .mobile-menu nav a { font-family: var(--mono); font-size: var(--t-mono-size); letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 18px 0; border-bottom: 1px solid var(--line); }
 }
 
 /* ===================== HERO ===================== */
@@ -78,7 +93,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
   position: relative; min-height: 100vh; display: flex; align-items: center; padding: 120px 0 64px;
 }
 .hero-grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 5vw, 80px); align-items: center; width: 100%; }
-@media (max-width: 900px) { .hero-grid { grid-template-columns: 1fr; gap: 8px; } }
+@media (max-width: 760px) { .hero-grid { grid-template-columns: 1fr; gap: 8px; } }
 .hero-eyebrow { display: block; margin: 0 0 26px; color: var(--blue); }
 .hero-copy { isolation: isolate; min-width: 0; }   /* keeps the .hi z-index trick contained */
 .hero-copy h1 {
@@ -105,11 +120,10 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 .hero-visual-hint { position: absolute; bottom: 8px; right: 4px; color: var(--dim); opacity: 0; transition: opacity 400ms ease 200ms; }
 .hero-mount.is-ready + .hero-visual-hint { opacity: 1; }
 .hero-mount.is-failed { cursor: default; }
-@media (max-width: 900px) {
-  /* Mobile shows the static wireframe render, sized to the phone; WebGL
-     (module + GLB ≈ 3MB, drag handlers) stays desktop-only. */
-  .hero-visual { margin-top: 18px; }
-  .hero-mount { height: clamp(240px, 64vw, 420px); cursor: default; touch-action: auto; }
+@media (max-width: 760px) {
+  /* Below 760px the head can't share the hero row — remove it rather
+     than stack it. Module + GLB (≈3MB) are never fetched here either. */
+  .hero-visual { display: none; }
 }
 
 /* text CTAs */

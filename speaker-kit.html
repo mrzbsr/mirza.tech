@@ -25,8 +25,23 @@
       <a href="index.html#about">about</a>
       <a href="index.html#contact">contact</a>
     </nav>
+    <button class="nav-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
   </div>
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-head">
+    <a class="logo" href="index.html">mirza<span class="logo-dot"></span>tech</a>
+    <button class="mobile-menu-close" type="button" aria-label="Close menu">&#10005;</button>
+  </div>
+  <nav>
+    <a href="index.html#speaking">speaking</a>
+    <a href="index.html#work">work</a>
+    <a href="index.html#writing">writing</a>
+    <a href="index.html#about">about</a>
+    <a href="index.html#contact">contact</a>
+  </nav>
+</div>
 
 <main class="legal kit">
   <p class="mono-label">For organizers</p>
@@ -102,6 +117,7 @@ Before Zendesk he built AI and automation platforms at Ultimate.ai and Dixa, thr
   <span>&copy; 2026 Mirza Beširović · <a href="mailto:mirza@mirza.tech">mirza@mirza.tech</a> · <a href="index.html">Home</a> · <a href="impressum.html">Impressum</a> · <a href="datenschutz.html">Datenschutz</a></span>
 </footer>
 
+<script src="assets/menu.js" defer></script>
 <script>
 document.querySelectorAll('.copy-btn').forEach((btn) => {
   btn.addEventListener('click', async () => {
