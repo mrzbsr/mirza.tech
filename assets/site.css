@@ -37,7 +37,7 @@ a:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-
 }
 /* v4: nav stays transparent on scroll (no cream blur background) */
 .topbar.is-stuck { background: transparent; }
-.topbar-inner { display: flex; justify-content: space-between; align-items: center; padding: 18px 56px; max-width: 1320px; margin: 0 auto; }
+.topbar-inner { display: flex; justify-content: space-between; align-items: center; padding: 18px 56px; max-width: 1240px; margin: 0 auto; }   /* same content box as .shell so logo/nav align with the body */
 @media (max-width: 720px) { .topbar-inner { padding: 14px 22px; } }
 .logo { font-family: var(--display); font-weight: 700; font-size: 23px; letter-spacing: -0.03em; color: var(--ink); text-transform: lowercase; line-height: 1; text-decoration: none; display: inline-flex; align-items: center; }
 /* Logo dot — surface variants (design system):
