@@ -113,7 +113,7 @@ html.menu-open { overflow: hidden; }
 .hero-headline .hi { background: var(--yellow); color: #16171A; padding: 0.01em 0.08em; box-decoration-break: clone; -webkit-box-decoration-break: clone; }
 .hero-lede { font-size: clamp(17px, 1.5vw, 21px); line-height: 1.55; color: var(--ink-soft); max-width: 46ch; margin: 0 0 18px; }
 .hero-visual { position: relative; }
-.hero-mount { position: relative; width: 100%; height: clamp(380px, 50vw, 620px); cursor: grab; touch-action: pan-y; background: url("hero-wireframe-fallback-user.png") center / contain no-repeat; }
+.hero-mount { position: relative; width: 100%; height: clamp(380px, 50vw, 620px); cursor: grab; touch-action: pan-y; background: url("hero-wireframe-fallback-user.webp") center / contain no-repeat; }
 .hero-mount.grabbing { cursor: grabbing; }
 .hero-mount canvas { display: block; width: 100%; height: 100%; }
 .hero-mount.is-ready { background-image: none; }
@@ -469,3 +469,13 @@ html.js .folio-list li { opacity: 0; transform: translateY(8px); transition: opa
 .kit-list li { position: relative; padding: 9px 0 9px 24px; font-size: 15px; line-height: 1.5; color: var(--ink-soft); border-bottom: 1px solid var(--line); }
 .kit-list li:last-child { border-bottom: 0; }
 .kit-list li::before { content: "→"; position: absolute; left: 0; color: var(--blue); }
+
+/* ---------- a11y + video facade (2026-07 pass) ---------- */
+.skip-link { position: absolute; left: -9999px; top: 0; z-index: 100; padding: 12px 18px; background: var(--yellow); color: var(--ink); border: 2px solid var(--ink); box-shadow: var(--shadow-tile-ink); font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; }
+.skip-link:focus { left: 12px; top: 12px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.video-facade { position: absolute; inset: 0; width: 100%; height: 100%; display: block; padding: 0; border: 0; background: var(--surface-dark); cursor: pointer; }
+.video-facade img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.vf-badge { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); display: inline-flex; align-items: center; gap: 10px; padding: 12px 20px; background: var(--yellow); color: #16171A; border: 2px solid #16171A; box-shadow: 4px 4px 0 #16171A; font-family: var(--mono); font-size: 13px; letter-spacing: 0.12em; text-transform: uppercase; white-space: nowrap; transition: box-shadow 0.15s ease, transform 0.15s ease; }
+.video-facade:hover .vf-badge, .video-facade:focus-visible .vf-badge { transform: translate(-50%, -50%) translate(-2px, -2px); box-shadow: 6px 6px 0 #16171A; }
+.vf-tri { width: 0; height: 0; border-left: 10px solid #16171A; border-top: 6px solid transparent; border-bottom: 6px solid transparent; }
