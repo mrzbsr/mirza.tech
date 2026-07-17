@@ -447,7 +447,7 @@
 
 <!-- ===================== SCRIPTS ===================== -->
 <script>
-  if (location.hash) requestAnimationFrame(() => document.querySelector(location.hash)?.scrollIntoView());
+  if (location.hash) requestAnimationFrame(() => document.getElementById(decodeURIComponent(location.hash.slice(1)))?.scrollIntoView());
 </script>
 <script src="assets/menu.js" defer></script>
 <script src="assets/vendor/gsap.min.js"></script>
