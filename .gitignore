@@ -1,2 +1,9 @@
 SITE-AUDIT.md
 .DS_Store
+
+# local dev material — not served on the site
+tools/
+fonts/*.ttf
+fonts/JetBrainsMono-Bold.woff2
+fonts/JetBrainsMono-Medium.woff2
+fonts/JetBrainsMono-SemiBold.woff2
