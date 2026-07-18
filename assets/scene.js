@@ -62,17 +62,21 @@ async function initHero(mount){
     });
   }
 
+  // The canvas renders 35% larger than the mount and overflows it (CSS centers
+  // it), with the camera pulled back by the same factor — the head stays the
+  // same size on screen but rotation never hard-clips at the canvas edge.
+  const BLEED = 1.35;
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
   renderer.localClippingEnabled = true;
   const rect = () => mount.getBoundingClientRect();
-  renderer.setSize(rect().width || 100, rect().height || 100);
+  renderer.setSize((rect().width || 100) * BLEED, (rect().height || 100) * BLEED);
   renderer.setClearColor(0x000000, 0);
   mount.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
   const camera = new THREE.PerspectiveCamera(32, 1, 0.1, 100);
-  camera.position.set(0, 0, 5.5); camera.lookAt(0, 0, 0);
+  camera.position.set(0, 0, 5.5 * BLEED); camera.lookAt(0, 0, 0);
   const root = new THREE.Group(); scene.add(root);
 
   const clipLocal = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0);
@@ -156,7 +160,7 @@ async function initHero(mount){
   onTick(renderHero);
 
   new ResizeObserver(() => {
-    const r = rect(); renderer.setSize(r.width, r.height);
+    const r = rect(); renderer.setSize(r.width * BLEED, r.height * BLEED);
     camera.aspect = (r.width || 1) / (r.height || 1); camera.updateProjectionMatrix();
     if (ready) { syncClip(); renderer.render(scene, camera); }   // setSize clears the canvas — repaint now
   }).observe(mount);
