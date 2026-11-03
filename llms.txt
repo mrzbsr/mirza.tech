@@ -1,10 +1,10 @@
 # Mirza Beširović — mirza.tech
 
-> Personal site of Mirza Beširović, Director of Product, AI Agents at Zendesk, based in Berlin. AI product leader, advisor, and conference speaker. He writes the newsletter You Are the Product.
+> Personal site of Mirza Beširović, AI product leader and speaker, based in Berlin. Most recently, he ran product for Zendesk AI Agents. He writes the newsletter You Are the Product.
 
 ## Who he is
 
-Mirza Beširović runs product for Zendesk AI Agents, the company's flagship AI automation platform. With his team he has scaled it to $100M+ ARR, automating 80%+ of customer interactions for Netflix, Vimeo, Levi's, Reddit, and thousands of others. He helped shape its commercial model: Zendesk was the first CX vendor to price AI per automated resolution.
+Mirza Beširović is an AI product leader and speaker. Most recently, he ran product for Zendesk AI Agents, the company's flagship AI automation platform. With his team he scaled it to $100M+ ARR, automating 80%+ of customer interactions for Netflix, Vimeo, Levi's, Reddit, and thousands of others. He helped shape its commercial model: Zendesk was the first CX vendor to price AI per automated resolution.
 
 Before Zendesk he built AI and automation platforms at Ultimate.ai and Dixa, through hypergrowth and two M&A integrations (Solvemate → Dixa, 2022; Ultimate.ai → Zendesk, 2024). He started his career as a translator and interpreter.
 
