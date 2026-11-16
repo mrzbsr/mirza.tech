@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="en">
+<head><meta name="robots" content="noindex,nofollow">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="only light">
+<title>Why AI Pilots Die · Digitale Leute Summit</title>
+<style>
+@font-face{font-family:'Instrument Sans';src:url('fonts/InstrumentSans-Variable.woff2') format('woff2');font-weight:400 700;font-style:normal}
+:root{color-scheme:only light;--paper:#faf6ea;--sand:#f0e9d6;--ink:#16171a;--blue:#2b4bff;--yellow:#e6ff00;--muted:#5f5c53}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var(--ink);font-family:'Instrument Sans',sans-serif}
+#stage{position:absolute;left:50%;top:50%;width:1280px;height:720px;margin:-360px 0 0 -640px;overflow:hidden;background:var(--paper);outline:none;cursor:default}
+#world{position:absolute;inset:0;width:1280px;height:720px;image-rendering:pixelated}
+@keyframes pop{0%{opacity:0;transform:translateY(16px) scale(.96)}100%{opacity:1;transform:none}}
+@keyframes grow{from{width:0}}
+.pt{visibility:hidden}
+.pt.show{visibility:visible;animation:pop .34s cubic-bezier(.2,.9,.3,1.2) both}
+
+/* text in the world's clearing */
+.slide{position:absolute;left:64px;top:104px;width:520px;opacity:0;pointer-events:none;transition:opacity .2s}
+.slide.top{top:50px;width:1000px}
+.slide.on{opacity:1}
+.slide h1{font-size:88px;line-height:.96;letter-spacing:-.045em;font-weight:700;margin:14px 0 26px}
+.slide .sub{font-size:36px;line-height:1.14;letter-spacing:-.025em;font-weight:600;margin:0 0 30px;max-width:470px}
+.slide mark{background:var(--yellow);color:inherit;padding:0 6px;margin:0 -6px}
+.slide .by{font-size:24px;font-weight:500;margin:0}
+.slide h2{font-size:64px;line-height:1;letter-spacing:-.04em;font-weight:700;margin:0 0 6px}
+.slide h2.md{font-size:56px;white-space:nowrap}
+.slide h2.sm{font-size:46px;line-height:1.05}
+.slide h2.xs{font-size:41px;white-space:nowrap}
+.card{background:var(--paper);border:3px solid var(--ink);box-shadow:6px 6px 0 var(--blue);padding:14px 20px;font-size:28px;line-height:1.2;letter-spacing:-.015em;font-weight:600;max-width:486px;margin-top:20px}
+.card.m{font-size:26px;margin-top:18px}
+.card.s{font-size:24px;margin-top:15px;padding:12px 18px}
+#s-q{width:410px}
+#s-q .card{font-size:27px;max-width:none}
+.fin{font-size:46px;line-height:1.08;letter-spacing:-.035em;font-weight:700;margin:0 0 8px}
+/* speaker intro */
+#s-bio .eye{font-size:22px;font-weight:700;color:var(--muted);margin:0 0 10px}
+#s-bio h1{font-size:74px;margin:0 0 14px;white-space:nowrap}
+#s-bio .where{font-size:24px;font-weight:700;color:var(--blue);margin:0 0 24px}
+#s-bio ul{list-style:none;margin:0 0 26px;padding:0}
+#s-bio li{font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1.5;display:flex;align-items:center;gap:20px}
+#s-bio li::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--blue)}
+#s-bio .read{font-size:26px;font-weight:500;margin:0}
+#s-bio .read u{text-decoration-color:var(--blue);text-decoration-thickness:3px;text-underline-offset:5px}
+#s-bio.on .st{animation:pop .34s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:calc(var(--d)*.16s)}
+
+/* a physical monitor's screen, shown once the camera has arrived inside it */
+.screen{position:absolute;left:38px;top:70px;width:1204px;height:629px;background:var(--paper);padding:26px 44px 0;opacity:0;pointer-events:none;transition:opacity .2s}
+.screen.on{opacity:1}
+.screen h2{font-size:46px;line-height:1.08;letter-spacing:-.035em;font-weight:700;margin:0 0 24px}
+.lab{font-size:26px;font-weight:700;color:var(--blue);line-height:1.15}
+.box{border:3px solid var(--ink);box-shadow:6px 6px 0 var(--blue);background:var(--paper)}
+.strip{margin-top:24px;background:var(--sand);border:3px solid var(--ink);padding:14px 20px;font-size:25px;line-height:1.26;font-weight:500}
+.strip strong{color:var(--blue);margin-right:8px}
+/* 4 building got faster */
+.panels{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.panel{padding:22px 28px 24px;min-height:400px}
+.panel p{font-size:27px;line-height:1.26;font-weight:500;letter-spacing:-.01em;margin:0}
+.big{font-size:88px;font-weight:700;letter-spacing:-.045em;line-height:1;margin:18px 0 12px}
+.q4{display:flex;gap:16px;margin-top:16px}
+.q4 i{width:96px;height:96px;border:3px solid var(--ink);background:var(--paper)}
+.q4 i.f{background:var(--blue)}
+.pt.show .q4 i.f{animation:fillsq .3s both;animation-delay:calc(.3s + var(--d)*.2s)}
+@keyframes fillsq{from{background:var(--paper);transform:scale(.7)}to{background:var(--blue);transform:none}}
+.dur{margin-top:16px}
+.dur span{display:block;font-size:24px;font-weight:600;margin-bottom:6px}
+.dur div{height:44px;border:3px solid var(--ink);background:var(--sand)}
+.dur div.now{background:var(--blue)}
+.pt.show .dur div{animation:grow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--d)*.45s)}
+.panel .dur+p{margin-top:22px}
+/* 6 production economics */
+.costrow{display:grid;grid-template-columns:400px 1fr;gap:30px;margin-bottom:14px}
+.num{font-size:72px;font-weight:700;letter-spacing:-.045em;line-height:1.06}
+.num small{font-size:30px;font-weight:600;letter-spacing:-.01em;margin-right:10px}
+.unit{font-size:26px;font-weight:500;line-height:1.15}
+#costgrid{width:1116px;height:201px;display:block}
+.costfoot{display:flex;justify-content:space-between;align-items:center;margin-top:14px}
+.point{background:var(--yellow);font-size:30px;font-weight:700;letter-spacing:-.02em;padding:8px 14px}
+.cap{font-size:22px;color:var(--muted)}
+.src{font-size:22px;color:var(--muted);margin-top:12px;white-space:nowrap}
+/* 7 work the demo didn't show, 17 before you fund */
+.boxes{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
+.wbox{padding:18px 20px 20px;min-height:290px}
+.wbox b,.blk b{display:flex;width:44px;height:44px;background:var(--blue);color:var(--paper);font-size:26px;align-items:center;justify-content:center;margin-bottom:14px}
+.wbox h3,.blk h3{font-size:28px;line-height:1.1;letter-spacing:-.02em;margin:0 0 10px}
+.wbox h3{min-height:62px}
+.wbox p{font-size:24px;line-height:1.22;margin:0;font-weight:500}
+.six{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.blk{padding:16px 20px 16px;min-height:204px}
+.blk b{width:40px;height:40px;font-size:24px;margin-bottom:10px}
+.blk p{font-size:23px;line-height:1.22;margin:0;font-weight:500}
+/* 9 one small team */
+.teamgrid{display:grid;grid-template-columns:646px 1fr;gap:26px}
+.roles{padding:22px;display:flex;flex-direction:column;justify-content:center}
+.roles .row{display:flex;gap:14px}
+.role{flex:1;border:3px solid var(--ink);padding:18px 4px 16px;text-align:center;font-size:22px;font-weight:700;line-height:1.12;min-height:232px}
+.role.part{border-style:dashed}
+.ava{width:72px;height:96px;margin:0 auto 16px;position:relative}
+.ava::before{content:"";position:absolute;left:19px;top:0;width:34px;height:34px;background:var(--ink)}
+.ava::after{content:"";position:absolute;left:4px;top:42px;width:64px;height:54px;background:var(--blue)}
+.role.part .ava::before,.role.part .ava::after{background:transparent;border:3px dashed var(--ink)}
+.roles p{font-size:26px;line-height:1.25;font-weight:500;margin:22px 4px 0}
+.pt.show .role{animation:pop .3s both;animation-delay:calc(.15s + var(--d)*.14s)}
+.evi{display:flex;flex-direction:column;gap:22px}
+.epanel{padding:16px 22px 18px}
+.epanel .n{font-size:60px;font-weight:700;letter-spacing:-.04em;line-height:1.05;margin:4px 0 6px}
+.epanel p{font-size:24px;line-height:1.22;font-weight:500;margin:0}
+/* 10 what that could change */
+.tl{margin-bottom:22px}
+.tbar{height:60px;position:relative;margin:8px 0 10px}
+.fill{position:absolute;top:0;bottom:0;left:0;border:3px solid var(--ink);background:var(--blue);color:var(--paper);font-size:24px;font-weight:700;display:flex;align-items:center;padding-left:16px;white-space:nowrap;overflow:hidden}
+.fill.est{background:var(--sand)}
+.fill.range{background:repeating-linear-gradient(45deg,var(--sand) 0 10px,var(--paper) 10px 20px);color:var(--ink);border-left:0}
+.pt.show .fill{animation:grow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:.3s}
+.pt.show .fill.range{animation-delay:.9s}
+.tl p{font-size:27px;line-height:1.25;font-weight:500;margin:0}
+.axis{display:flex;justify-content:space-between;font-size:22px;color:var(--muted);border-top:3px solid var(--ink);padding-top:8px}
+/* 11 how the team works */
+.howrow{display:flex;align-items:center;gap:30px;margin-bottom:26px}
+.trio{display:flex;flex:none}
+.trio b{width:168px;height:84px;border:3px solid var(--ink);display:flex;align-items:center;justify-content:center;font-size:26px;background:var(--paper)}
+.trio b+b{margin-left:-22px;background:var(--sand);margin-top:16px}
+.trio b+b+b{background:var(--blue);color:var(--paper);margin-top:0}
+.howrow p{font-size:27px;line-height:1.3;font-weight:500;margin:0}
+.flow .cap2{font-size:27px;font-weight:600;margin-bottom:12px}
+.nodes{display:flex;align-items:center}
+.nodes span{flex:1;height:104px;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:700;letter-spacing:-.02em}
+.nodes i{width:54px;text-align:center;font-style:normal;font-size:38px;font-weight:700;color:var(--blue)}
+.pt.show .nodes span,.pt.show .nodes i{animation:pop .3s both;animation-delay:calc(.2s + var(--d)*.16s)}
+.skills{margin-top:22px;background:var(--yellow);border:3px solid var(--ink);padding:16px 20px;font-size:26px;font-weight:500;line-height:1.25}
+/* 12 decision date */
+.dl{position:relative;height:300px}
+.d90 b{display:block;font-size:26px;margin-bottom:8px}
+.d90 .bar90{height:70px;border:3px solid var(--ink);background:var(--sand)}
+.d90 .ticks{display:flex;justify-content:space-between;font-size:22px;color:var(--muted);margin-top:8px}
+.bet{position:absolute;left:0;top:40px;width:46.67%;height:70px;background:var(--blue);border:3px solid var(--ink);color:var(--paper);font-size:28px;font-weight:700;display:flex;align-items:center;padding-left:18px;white-space:nowrap;overflow:hidden}
+.pt.show.bet{animation:grow .8s cubic-bezier(.2,.8,.2,1) both}
+.dec{position:absolute;left:46.67%;top:40px}
+.dec .dia{position:absolute;left:-19px;top:16px;width:38px;height:38px;background:var(--yellow);border:3px solid var(--ink);transform:rotate(45deg)}
+.dec .v{position:absolute;left:-1.5px;top:74px;width:3px;height:80px;background:var(--ink)}
+.dec .hline{position:absolute;left:-180px;top:154px;width:363px;height:3px;background:var(--ink)}
+.dec .v2{position:absolute;top:154px;width:3px;height:40px;background:var(--ink)}
+.dec span{position:absolute;top:194px;width:150px;height:58px;margin-left:-75px;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:700}
+.lines p{font-size:27px;font-weight:500;line-height:1.3;margin:0 0 6px}
+/* 13 buying */
+.buy{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.buy .panel{min-height:300px}
+.vz{font-size:46px;font-weight:700;letter-spacing:-.035em;margin-top:16px}
+.crate{width:132px;height:100px;margin-top:22px;border:3px solid var(--ink);background:var(--paper);position:relative}
+.crate::before{content:"";position:absolute;left:36px;top:-3px;bottom:-3px;width:22px;background:var(--blue);border:3px solid var(--ink)}
+.crate::after{content:"";position:absolute;right:12px;top:14px;width:30px;height:22px;background:var(--yellow);border:3px solid var(--ink)}
+.assign{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:18px 20px}
+.assign li{font-size:34px;font-weight:700;letter-spacing:-.025em;display:flex;align-items:center;gap:14px}
+.assign li::before{content:"";width:34px;height:34px;border:3px dashed var(--ink)}
+/* 14 checklist */
+.checks{list-style:none;margin:0;padding:0}
+.checks li{display:flex;align-items:center;gap:20px;border:3px solid var(--ink);box-shadow:5px 5px 0 var(--blue);padding:12px 20px;font-size:30px;font-weight:600;letter-spacing:-.015em;margin-bottom:15px}
+.checks i{flex:none;width:42px;height:42px;background:var(--yellow);border:3px solid var(--ink);position:relative}
+.checks i::after{content:"";position:absolute;left:12px;top:3px;width:11px;height:22px;border:solid var(--ink);border-width:0 5px 5px 0;transform:rotate(42deg)}
+/* 16 open questions */
+.opens{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.open{border:3px dashed var(--ink);padding:22px 26px 26px;min-height:392px;font-size:33px;font-weight:700;line-height:1.14;letter-spacing:-.025em}
+.open b{display:block;font-size:150px;line-height:1;color:var(--blue);margin-bottom:14px}
+
+/* speech bubbles and unit labels pinned to the world */
+.bub{position:absolute;transform:translate(-50%,-100%) scale(.6);background:var(--paper);border:3px solid var(--ink);padding:3px 11px;font-size:22px;font-weight:700;line-height:1.2;opacity:0;pointer-events:none;transition:opacity .12s,transform .18s cubic-bezier(.2,.9,.3,1.5)}
+.bub.on{opacity:1;transform:translate(-50%,-100%)}
+.mark{position:absolute;width:0;height:0;display:flex;justify-content:center;align-items:flex-end;visibility:hidden;pointer-events:none}
+.mark .mk{flex:none;display:flex;flex-direction:column;align-items:center}
+.mark.on{visibility:visible}
+.mark.on .mk{animation:pop .34s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:calc(.2s + var(--d)*.45s)}
+.mark b{background:var(--yellow);border:3px solid var(--ink);padding:4px 12px;font-size:22px;white-space:nowrap}
+.mark i{width:14px;height:14px;background:var(--yellow);border:3px solid var(--ink);transform:rotate(45deg);margin-top:7px;animation:bobm 1s ease-in-out infinite alternate}
+@keyframes bobm{to{transform:translateY(7px) rotate(45deg)}}
+
+/* game HUD */
+.chip{position:absolute;top:26px;height:40px;display:flex;align-items:center;gap:10px;padding:0 14px;background:var(--paper);border:3px solid var(--ink);box-shadow:4px 4px 0 var(--ink);font-size:22px;font-weight:700;line-height:1;pointer-events:none}
+#hud-gems{right:64px}
+#hud-gems.bump{animation:bump .3s}
+@keyframes bump{40%{transform:scale(1.2)}}
+.gem{display:inline-block;width:16px;height:16px;background:var(--yellow);border:3px solid var(--ink);transform:rotate(45deg);margin:0 3px}
+.gem.fly{position:absolute;margin:0;z-index:5;transition:left .5s cubic-bezier(.5,0,.3,1),top .5s cubic-bezier(.5,-.4,.3,1)}
+#track{position:absolute;right:64px;bottom:46px;display:flex;align-items:center;gap:7px;pointer-events:none}
+#track i{width:12px;height:12px;border:3px solid var(--ink);background:var(--paper)}
+#track i.done{background:var(--ink)}
+#track i.now{width:20px;height:20px;background:var(--blue)}
+.lock{position:absolute;left:64px;bottom:44px;font-size:24px;font-weight:700;line-height:1;letter-spacing:-.03em;display:inline-flex;align-items:center;pointer-events:none}
+.lock i{width:9px;height:9px;border-radius:50%;background:var(--blue);margin:0 7px}
+</style>
+</head>
+<body>
+<main id="stage" tabindex="0">
+  <canvas id="world" width="640" height="360" aria-hidden="true"></canvas>
+
+  <!-- 1 -->
+  <section class="slide" id="s-title">
+    <h1 class="pt" data-i="1">Why AI Pilots Die</h1>
+    <p class="sub pt" data-i="1">You Can’t Buy Your Way Out of an <mark>Org Problem</mark></p>
+    <p class="by pt" data-i="1">Mirza Besirovic · Digitale Leute Summit</p>
+  </section>
+  <section class="slide" id="s-bio">
+    <p class="eye st" style="--d:0">Your speaker</p>
+    <h1 class="st" style="--d:1">Mirza Beširović</h1>
+    <p class="where st" style="--d:2">Berlin</p>
+    <ul>
+      <li class="st" style="--d:3">AI Product Leader</li>
+      <li class="st" style="--d:4">Mentor</li>
+      <li class="st" style="--d:5">Speaker</li>
+      <li class="st" style="--d:6">Author</li>
+    </ul>
+    <p class="read st" style="--d:7">Read my writing at <u>youaretheproduct.io</u></p>
+  </section>
+
+  <!-- 2 -->
+  <section class="slide" id="s-q">
+    <div class="pt card" data-i="1">Raise your hand if your company ran an AI pilot this year</div>
+    <div class="pt card" data-i="2">Keep it up if that pilot is in production today</div>
+    <div class="pt card" data-i="3">Keep it up if you can name who runs it</div>
+  </section>
+
+  <!-- 3 -->
+  <section class="slide" id="s-wow">
+    <h2 class="pt" data-i="1">The pilot works</h2>
+  </section>
+  <section class="slide" id="s-pilot">
+    <h2 class="pt" data-i="1">The pilot works</h2>
+    <div class="pt card" data-i="1">Scaling it brings the rest of the company into the picture</div>
+    <div class="pt card" data-i="2">Someone has to run it, pay for it, and make room for it</div>
+  </section>
+
+  <!-- 4 -->
+  <section class="screen" id="m-fast">
+    <h2 class="pt" data-i="1">Building software got fast and cheap</h2>
+    <div class="panels">
+      <div class="panel box pt" data-i="2">
+        <div class="lab">Ramp</div>
+        <div class="q4"><i class="f" style="--d:0"></i><i class="f" style="--d:1"></i><i class="f" style="--d:2"></i><i></i></div>
+        <div class="big">3 in 4</div>
+        <p>product changes are written by its own coding agent, Ramp says</p>
+      </div>
+      <div class="panel box pt" data-i="3">
+        <div class="lab">Atlassian</div>
+        <div class="dur"><span>Work that took about six months</span><div style="width:100%;--d:0"></div></div>
+        <div class="dur"><span>“now took 6 weeks,” its product chief said</span><div class="now" style="width:23%;--d:1"></div></div>
+        <p>Two products shipped in six and eight weeks</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5 -->
+  <section class="slide" id="s-wait">
+    <h2 class="pt md" data-i="1">So the wait moved</h2>
+    <div class="pt card m" data-i="2">Deciding what to build now takes longer than building it</div>
+    <div class="pt card m" data-i="3">Teams are still sized for slow building: for every six engineers, a designer and a product manager</div>
+    <div class="pt card m" data-i="4">Plans still run on annual roadmaps</div>
+  </section>
+
+  <!-- 6 -->
+  <section class="screen" id="m-cost">
+    <h2 class="pt" data-i="1">Production changes the economics</h2>
+    <div class="costrow">
+      <div class="pt" data-i="2"><div class="lab">Pilot</div><div class="num">$1,500</div><div class="unit">a month in API usage</div></div>
+      <div class="pt" data-i="3"><div class="lab">Production</div><div class="num"><small>Just over</small>$1 million</div><div class="unit">a month</div></div>
+    </div>
+    <canvas id="costgrid" class="pt" data-i="2" width="2232" height="402"></canvas>
+    <div class="costfoot"><span class="point pt" data-i="4">Model the cost at production volume</span><span class="cap pt" data-i="2">One square = $1,500 a month</span></div>
+    <div class="src pt" data-i="2">Nick Talwar · Why AI Agent Pilots Don’t Scale · Aug 2026</div>
+  </section>
+
+  <!-- 7 -->
+  <section class="screen" id="m-work">
+    <h2 class="pt" data-i="1">The work the demo didn’t show</h2>
+    <div class="boxes">
+      <div class="wbox box pt" data-i="2"><b>1</b><h3>Production costs</h3><p>What happens to the bill when usage grows?</p></div>
+      <div class="wbox box pt" data-i="3"><b>2</b><h3>Maintenance</h3><p>Who keeps the agents and their infrastructure working?</p></div>
+      <div class="wbox box pt" data-i="4"><b>3</b><h3>Capacity</h3><p>What existing work stops so the team has room?</p></div>
+      <div class="wbox box pt" data-i="5"><b>4</b><h3>Ownership</h3><p>Who runs the result after the pilot?</p></div>
+    </div>
+    <div class="strip pt" data-i="6"><strong>Example</strong>Every.io found that maintaining separate personal agents consumed team time, and moved toward managed infrastructure and a shared agent</div>
+  </section>
+
+  <!-- 8 -->
+  <section class="slide" id="s-job">
+    <h2 class="pt sm" data-i="1">The company already has a job to do</h2>
+    <div class="pt card m" data-i="2">The receiving team already has customers, support work, and a roadmap</div>
+    <div class="pt card m" data-i="3">Taking on the pilot means changing those commitments</div>
+    <div class="pt card m" data-i="4">People also need to understand where they fit in the new way of working</div>
+  </section>
+
+  <!-- 9 -->
+  <section class="screen" id="m-team">
+    <h2 class="pt" data-i="1">Start with one small team</h2>
+    <div class="teamgrid">
+      <div class="roles box pt" data-i="2">
+        <div class="row">
+          <div class="role" style="--d:0"><div class="ava"></div>Product person</div>
+          <div class="role" style="--d:1"><div class="ava"></div>Engineer</div>
+          <div class="role" style="--d:2"><div class="ava"></div>AI specialist</div>
+          <div class="role part" style="--d:4"><div class="ava"></div>Designer, part-time</div>
+        </div>
+        <p>A product person, an engineer, and an AI specialist, with a designer part-time</p>
+      </div>
+      <div class="evi">
+        <div class="epanel box pt" data-i="3"><div class="lab">StrongDM’s AI team</div><div class="n">3 people</div><p>who ship software without writing code by hand</p></div>
+        <div class="epanel box pt" data-i="4"><div class="lab">Google Labs teams</div><div class="n">5–7 → 2–3</div><p>Josh Woodward: “used to be five to seven people,” now “about two to three”</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 10 -->
+  <section class="screen" id="m-change">
+    <h2 class="pt" data-i="1">What that could change</h2>
+    <div class="tl pt" data-i="2">
+      <div class="lab">Illustrative result</div>
+      <div class="tbar"><div class="fill" style="width:33.33%">Under six months</div></div>
+      <p>An illustrative example: one such team took a product from nothing to customers’ hands in under six months</p>
+    </div>
+    <div class="tl pt" data-i="3">
+      <div class="lab">Conventional-team estimate</div>
+      <div class="tbar"><div class="fill est" style="width:66.67%"></div><div class="fill range" style="left:66.67%;width:33.33%">12 to 18 months</div></div>
+      <p>A conventional team of ten would have been estimated at 12 to 18 months</p>
+    </div>
+    <div class="axis pt" data-i="2"><span>0</span><span>6 months</span><span>12 months</span><span>18 months</span></div>
+  </section>
+
+  <!-- 11 -->
+  <section class="slide top" id="s-how">
+    <h2 class="pt md" data-i="1">Change how the team works</h2>
+  </section>
+  <section class="screen" id="m-how">
+    <h2 class="pt" data-i="1">Change how the team works</h2>
+    <div class="howrow pt" data-i="1">
+      <div class="trio"><b>Product</b><b>Design</b><b>Engineering</b></div>
+      <p>Product, design, and engineering all use coding agents, together<br>The roles overlap, but the three perspectives stay</p>
+    </div>
+    <div class="flow pt" data-i="2">
+      <div class="cap2">Prototypes replace long requirement documents</div>
+      <div class="nodes"><span class="box" style="--d:0">Problem</span><i style="--d:1">→</i><span class="box" style="--d:1">Prototype</span><i style="--d:2">→</i><span class="box" style="--d:2">Review</span><i style="--d:3">→</i><span class="box" style="--d:3">Change</span></div>
+    </div>
+    <div class="skills pt" data-i="3"><b>A shared library of skills</b> makes one person’s good practice available to the whole team</div>
+  </section>
+
+  <!-- 12 -->
+  <section class="screen" id="m-date">
+    <h2 class="pt" data-i="1">Give the work a decision date</h2>
+    <div class="dl">
+      <div class="d90 pt" data-i="2"><b>Plans cover 90 days</b><div class="bar90"></div><div class="ticks"><span>Day 0</span><span>30</span><span>60</span><span>90</span></div></div>
+      <div class="bet pt" data-i="3">Six-week bet</div>
+      <div class="dec pt" data-i="4">
+        <div class="dia"></div><div class="v"></div><div class="hline"></div>
+        <div class="v2" style="left:-180px"></div><div class="v2" style="left:-1.5px"></div><div class="v2" style="left:180px"></div>
+        <span class="box" style="left:-180px">Stop</span><span class="box" style="left:0">Change</span><span class="box" style="left:180px">Scale</span>
+      </div>
+    </div>
+    <div class="lines">
+      <p class="pt" data-i="3">A new bet gets six weeks to prove or disprove itself</p>
+      <p class="pt" data-i="4">Then it is stopped, changed, or scaled</p>
+    </div>
+  </section>
+
+  <!-- 13 -->
+  <section class="screen" id="m-buy">
+    <h2 class="pt" data-i="1">Buying still leaves work to do</h2>
+    <div class="buy">
+      <div class="panel box pt" data-i="2"><div class="lab">The technology being bought</div><div class="crate"></div><div class="vz">Vimeo uses Zendesk</div></div>
+      <div class="panel box pt" data-i="3"><div class="lab">Responsibilities the company must assign</div><ul class="assign"><li>Workflows</li><li>Ownership</li><li>Quality</li><li>Costs</li></ul></div>
+    </div>
+    <div class="strip pt" data-i="3">Buying the technology still leaves the company responsible for its workflows, ownership, quality, and costs</div>
+  </section>
+
+  <!-- 14 -->
+  <section class="screen" id="m-resp">
+    <h2 class="pt" data-i="1">Make responsibilities visible</h2>
+    <ul class="checks">
+      <li class="pt" data-i="2"><i></i>Each agent has a person responsible for it</li>
+      <li class="pt" data-i="3"><i></i>It is on one company-wide list</li>
+      <li class="pt" data-i="4"><i></i>It passes a trial before it meets customers</li>
+      <li class="pt" data-i="5"><i></i>Its costs are visible to the team that runs it</li>
+      <li class="pt" data-i="6"><i></i>Teams use a shared rulebook and common components</li>
+    </ul>
+  </section>
+
+  <!-- 15 -->
+  <section class="slide" id="s-both">
+    <h2 class="pt xs" data-i="1">Both sides have to change</h2>
+    <div class="pt card s" data-i="2">The small team learns enterprise discipline</div>
+    <div class="pt card s" data-i="3">The wider organization learns faster ways to build and decide</div>
+    <div class="pt card s" data-i="4">Absorbing the fast team into the old process loses what made it valuable</div>
+    <div class="pt card s" data-i="5">The same applies without an acquisition</div>
+  </section>
+
+  <!-- 16 -->
+  <section class="screen" id="m-open">
+    <h2 class="pt" data-i="1">What nobody has settled yet</h2>
+    <div class="opens">
+      <div class="open pt" data-i="2"><b>?</b>How much can run without a human checking?</div>
+      <div class="open pt" data-i="3"><b>?</b>What does it cost?</div>
+      <div class="open pt" data-i="4"><b>?</b>How big should a team be, and what happens to roles?</div>
+    </div>
+  </section>
+
+  <!-- 17 -->
+  <section class="screen" id="m-before">
+    <h2 class="pt" data-i="1">Before you fund the next pilot</h2>
+    <div class="six">
+      <div class="blk box pt" data-i="2"><b>1</b><h3>Pick one real problem</h3><p>Start with a result the business needs</p></div>
+      <div class="blk box pt" data-i="3"><b>2</b><h3>Give a small team room</h3><p>Decide which existing work will stop</p></div>
+      <div class="blk box pt" data-i="4"><b>3</b><h3>Name the owner</h3><p>Who runs it if the pilot works?</p></div>
+      <div class="blk box pt" data-i="5"><b>4</b><h3>Measure the result</h3><p>Track a business outcome and its production cost</p></div>
+      <div class="blk box pt" data-i="6"><b>5</b><h3>Test in six-week bets</h3><p>Build, learn, and change the plan</p></div>
+      <div class="blk box pt" data-i="7"><b>6</b><h3>Set the decision date</h3><p>Stop, change, or scale</p></div>
+    </div>
+  </section>
+
+  <!-- 18 -->
+  <section class="slide" id="s-close">
+    <p class="fin pt" data-i="1">Three people, one real problem, six weeks, and a date to decide</p>
+    <div class="pt card" data-i="2">Before they start, name who runs it if it works</div>
+  </section>
+
+  <div class="chip" id="hud-gems"><i class="gem"></i><span id="gems">0</span></div>
+  <div id="track"></div>
+  <div class="lock">mirza<i></i>tech</div>
+</main>
+<script src="vendor/three.r160.classic.js"></script>
+<script src="deck-claude-v3-engine.js"></script>
+</body>
+</html>
