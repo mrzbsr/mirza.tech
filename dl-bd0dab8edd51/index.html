@@ -355,6 +355,15 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
 .six.four .blk p{font-size:26px}
 .more{position:absolute;left:64px;top:436px;font-size:26px;font-weight:500;margin:0}
 .more u{text-decoration-color:var(--blue);text-decoration-thickness:3px;text-underline-offset:5px}
+
+/* ---------- v13: thank-you slide ---------- */
+#s-thanks{top:112px;width:660px}
+#s-thanks h1{font-size:108px;line-height:.96;letter-spacing:-.04em;word-spacing:.07em;margin:0 0 48px;white-space:nowrap;text-shadow:6px 6px 0 var(--blue)}
+#s-thanks ul{list-style:none;margin:0;padding:0}
+#s-thanks li{display:flex;align-items:baseline;gap:26px;margin:0 0 18px}
+#s-thanks li b{width:148px;flex:none;font-size:24px;font-weight:700;color:var(--muted)}
+#s-thanks li u{font-size:36px;font-weight:700;letter-spacing:-.03em;line-height:1.2;text-decoration-color:var(--blue);text-decoration-thickness:3px;text-underline-offset:6px}
+#s-thanks.on .st{animation:pop .34s cubic-bezier(.2,.9,.3,1.2) both;animation-delay:calc(var(--d)*.06s)}
 </style>
 </head>
 <body>
@@ -549,7 +558,16 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
       <div class="pt" data-i="1">Three people, one real problem, and a decision in six weeks</div>
       <div class="pt" data-i="2">Before they start, name who runs it if it works</div>
     </div>
-    <p class="more pt" data-i="2">Read my writing at <u>youaretheproduct.io</u></p>
+  </section>
+
+  <!-- thank you -->
+  <section class="slide" id="s-thanks">
+    <h1 class="st" style="--d:0">Thank you</h1>
+    <ul>
+      <li class="st" style="--d:2"><b>Website</b><u>mirza.tech</u></li>
+      <li class="st" style="--d:3"><b>Newsletter</b><u>youaretheproduct.io</u></li>
+      <li class="st" style="--d:4"><b>LinkedIn</b><u>/in/mirzabesirovic</u></li>
+    </ul>
   </section>
 
   <h2 id="runhead"></h2>
@@ -559,6 +577,6 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
   <div class="lock">mirza<i></i>tech</div>
 </main>
 <script src="vendor/three.r160.classic.js"></script>
-<script src="deck-claude-v12-engine.js?v=1"></script>
+<script src="deck-claude-v13-engine.js?v=1"></script>
 </body>
 </html>
