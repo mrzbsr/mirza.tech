@@ -40,6 +40,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
 #s-bio .eye{font-size:22px;font-weight:700;color:var(--muted);margin:0 0 10px}
 #s-bio h1{font-size:74px;margin:0 0 14px;white-space:nowrap}
 #s-bio .where{font-size:24px;font-weight:700;color:var(--blue);margin:0 0 24px}
+#s-bio h1 .pron{font-size:28px;font-weight:500;letter-spacing:0;margin-left:6px} /* the pronouns belong to the name: same line, in parentheses, small and regular, as on the title slide */
 #s-bio ul{list-style:none;margin:0 0 26px;padding:0}
 #s-bio li{font-size:38px;font-weight:700;letter-spacing:-.03em;line-height:1.5;display:flex;align-items:center;gap:20px}
 #s-bio li::before{content:"";width:14px;height:14px;border-radius:50%;background:var(--blue)}
@@ -310,6 +311,7 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
 /* group labels: no stagger, a stem down to the group */
 #s-pilot{top:50px;width:1152px;display:flex;flex-wrap:wrap;column-gap:18px;align-items:stretch}
 #s-pilot h2{flex:0 0 100%}
+#s-pilot .tag{margin:-50px 0 0 -64px} /* v28: the labels of the three pairs are placed in stage coordinates, and this slide starts 64 px in and 50 px down */
 #s-pilot .card{flex:1 1 0;min-width:0;max-width:none;margin-right:0;font-size:27px;text-wrap:balance}
 .scene.addr h2{background:var(--paper);box-shadow:0 0 0 7px var(--paper)}
 .mark.on .mk{animation-delay:.05s}
@@ -389,6 +391,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
 #m-fast .cmp div{height:40px}
 #m-fast .cmp i{display:block;height:100%;border:3px solid var(--ink);background:var(--sand);transform-origin:left}
 #m-fast .cmp i.now{background:var(--blue)}
+/* v23: the two Atlassian bars grow in again, the long one first, as they did before the cards were reworked */
+#m-fast .pt.show .cmp i{animation:grow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--d)*.45s)}
 #m-fast .pt.show .bars i{animation:grow .7s cubic-bezier(.2,.8,.2,1) both;animation-delay:calc(.3s + var(--d)*.45s)}
 
 /* ---------- v16: the decision date fills the screen: a six-week bar, then the three outcomes one by one ---------- */
@@ -436,7 +440,10 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
 #s-both .way b{display:inline-flex;width:30px;height:30px;align-items:center;justify-content:center;background:var(--blue);color:var(--paper);font-size:20px;font-weight:700;margin-bottom:9px}
 #s-both .way h3{font-size:27px;line-height:1.1;letter-spacing:-.025em;font-weight:700;margin:0 0 6px}
 #s-both .way p{font-size:22px;line-height:1.18;font-weight:500;margin:0}
-#s-both .talk.grp{font-size:26px}
+/* v27: the conclusion spans all three cards as one bracket with a label */
+#s-both .allthree{position:absolute;left:64px;top:304px;width:1152px;height:34px;display:flex;justify-content:center;align-items:center}
+#s-both .allthree::before{content:"";position:absolute;left:0;right:0;top:0;height:18px;border:3px solid var(--ink);border-top:0;box-sizing:border-box}
+#s-both .allthree span{position:relative;background:var(--yellow);border:3px solid var(--ink);padding:2px 16px 3px;font-size:25px;font-weight:700;white-space:nowrap}
 </style>
 </head>
 <body>
@@ -451,8 +458,8 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
   </section>
   <section class="slide" id="s-bio">
     <p class="eye st" style="--d:0">Your speaker</p>
-    <h1 class="st" style="--d:1">Mirza Beširović</h1>
-    <p class="where st" style="--d:2">Berlin</p>
+    <h1 class="st" style="--d:1">Mirza Beširović <span class="pron">(he/they)</span></h1>
+    <p class="where st" style="--d:2">Berlin / Zurich</p>
     <ul>
       <li class="st" style="--d:3">AI Product Leader</li>
       <li class="st" style="--d:4">Mentor</li>
@@ -476,6 +483,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
     <div class="pt card spell" data-i="2">Contact with real users breaks the spell</div>
     <div class="pt card" data-i="3">To scale it, you need<br>the rest of the company</div>
     <div class="pt card build" data-i="4">Someone has to <span class="cl" data-c="4">pay for it</span><span class="cl" data-c="5">, run it</span><span class="cl" data-c="6">, and make room for it</span></div>
+    <div class="tag span pt" data-i="4" data-span="finC:finD" data-stick="1" data-front="1"><span>Pay for it</span></div>
+    <div class="tag span pt" data-i="5" data-span="s2:s3" data-stick="1" data-front="1"><span>Run it</span></div>
+    <div class="tag span pt" data-i="6" data-span="plnH:plnF" data-stick="1" data-front="1"><span>Make room for it</span></div>
   </section>
 
   <!-- 4 -->
@@ -508,9 +518,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
   <!-- 6 -->
   <section class="scene" id="s-job">
     <h2 class="pt" data-i="1">The team that takes it over already has a job to do</h2>
-    <div class="talk pt" data-i="2" data-who="estR" style="width:270px">We already have customers, support work, and a roadmap</div>
-    <div class="talk pt" data-i="3" data-who="hero" style="width:270px">If you take on the pilot, something else has to wait</div>
-    <div class="talk pt" data-i="4" data-who="estG" style="width:270px">And where do we fit once this is running?</div>
+    <div class="talk pt" data-i="2" data-who="estR" style="width:270px">We already have customers, support, and a full roadmap</div>
+    <div class="talk pt" data-i="3" data-who="hero" style="width:270px">The handover is where pilots come apart</div>
+    <div class="talk pt" data-i="4" data-who="estG" style="width:270px">And where do we fit in the new way of working?</div>
   </section>
 
   <!-- 7 -->
@@ -621,16 +631,13 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
   <!-- 15 -->
   <section class="scene" id="s-both">
     <h2 class="pt" data-i="1">When it works, the company has to change too</h2>
-    <div class="tag pt" data-i="1" data-who="shT"><span>Small team</span></div>
-    <div class="tag span pt" data-i="1" data-span="shM:shW" data-dy="-18"><span>Rest of the company</span></div>
     <div class="ways">
       <div class="box way pt" data-i="1"><b>1</b><h3>The pilot team keeps it</h3><p>It grows into the team that runs and scales it</p></div>
       <div class="box way pt" data-i="2"><b>2</b><h3>A product team takes it over</h3><p>A sponsor above both teams frees the capacity</p></div>
       <div class="box way pt" data-i="3"><b>3</b><h3>It gets its own home</h3><p>A separate unit, as NotebookLM has in Google Labs</p></div>
     </div>
-    <div class="talk grp" data-who="hero" data-dx="-44" style="width:446px">
-      <div class="pt" data-i="4">In all three, someone senior changes the plan to make room</div>
-    </div>
+    <div class="tag pt" data-i="2" data-who="gS" data-stick="1"><span>Sponsor</span></div>
+    <div class="allthree pt" data-i="4"><span>In all three, someone senior changes the plan to make room</span></div>
   </section>
 
   <!-- 15 -->
@@ -670,6 +677,6 @@ html,body{margin:0;height:100%;overflow:hidden;background:var(--paper);color:var
   <div class="lock">mirza<i></i>tech</div>
 </main>
 <script src="vendor/three.r160.classic.js"></script>
-<script src="deck-claude-v22-engine.js?v=1"></script>
+<script src="deck-claude-v28-engine.js?v=1"></script>
 </body>
 </html>
