@@ -1075,6 +1075,25 @@ const CITY={"name":"Zürich","title":"Albisriederplatz, Zürich","region":"Kreis
 // Sources: Y (zuerich.com photo; Commons "Schulhaus Albisriederplatz 2019"), turrets, mansards and dormers (Commons "Zürich
 // Albisriederplatz 01-03", "Stollergebäude"), tram livery (Commons), pavilion, grills and Y pad (OSM, swisstopo aerial, Google Maps).
 const LANDMARKS = [{
+  // 1952 concrete roof on steel columns (Altherr), kiosk and VBZ ticket office under it: Commons "Zürich Albisriederplatz 02/03"
+  name: 'Tram stop roof', ids: ['r7360059', 'w330836905'],
+  build() {
+    const b = findBuilding('r7360059'), ring = ccw(b.ring), k = findBuilding('w330836905');
+    const kiosk = k && k.ring ? block(ccw(k.ring), 0, 2.7, { facade: 'glass', wall: '#59626a', trim: '#3f464c', shop: 'none', rooftop: 'none', flatRoof: '#6a6f74' }) : null;
+    const inner = zhOffset(ring, 1.3), cols = [];
+    inner.forEach((a, i) => { const c = inner[(i + 1) % inner.length], len = Math.hypot(c[0] - a[0], c[1] - a[1]), n = Math.max(1, Math.round(len / 6));
+      for (let j = 0; j < n; j++) { const p = [a[0] + (c[0] - a[0]) * j / n, a[1] + (c[1] - a[1]) * j / n];
+        if (!(k && k.ring && zhIn(p, k.ring)) && !cols.some(q => Math.hypot(q[0] - p[0], q[1] - p[1]) < 2.5)) cols.push(p); } });
+    return obj(ring, 3.7, () => {
+      let s = shape(ring.map(p => [...p, .03]), '#dcd8cf', 0);
+      const parts = cols.map(p => ({ d: depthOf([p[0], p[1], 1.6]), svg: stick([p[0], p[1], 0], [p[0], p[1], 3.3], .11, '#8a8f94') }));
+      if (kiosk) parts.push({ d: depthOf([k.obb.c[0], k.obb.c[1], 1.4]), svg: kiosk.draw() });
+      s += parts.sort((p, q) => p.d - q.d).map(p => p.svg).join('');
+      s += loft(ring.map(p => [...p, 3.3]), ring.map(p => [...p, 3.55]), n => tone(n, soft('#e3e0d8'))) + shape(ring.map(p => [...p, 3.55]), '#a7a6a5', .6);
+      return s;
+    });
+  }
+}, {
   name: 'Hardaupark pavilion', ids: ['w262448995'],
   build() {
     const b = findBuilding('w262448995'), ring = ccw(b.ring);
